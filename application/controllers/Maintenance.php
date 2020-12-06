@@ -62,12 +62,15 @@ class Maintenance extends CI_Controller {
 
 
     function do_upload(){
+        log_message('debug', "in do_upload");
+
         $config['upload_path']="./assets/maintenance";
         $config['allowed_types']='gif|jpg|png|pdf';
         $config['encrypt_name'] = TRUE;
          
         $this->load->library('upload',$config);
         if($this->upload->do_upload("invoice")){
+            log_message('debug', "upload true");
             $data = array('upload_data' => $this->upload->data());
  
             //$title= $this->input->post('title');
@@ -76,11 +79,13 @@ class Maintenance extends CI_Controller {
             return $image;
             //$result= $this->upload_model->save_upload($title,$image);
             //echo json_decode($result);
-        }
+        }else{ return NULL;}
     }
 
     public function set_maintenance(){
-        $image = do_upload();
+        log_message('debug', "in set_maintenance");
+        $image = $this->do_upload();
+        log_message('debug', "in set_maintenance 2");
         $maintenance_id = $this->input->post('id');
         $data = array(
             'maintenance_id' => $maintenance_id,

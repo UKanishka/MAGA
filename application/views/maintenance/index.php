@@ -292,7 +292,11 @@ $(document).on('nifty.ready', function() {
         $.ajax({
             url : "<?php echo site_url('maintenance/set_maintenance');?>",
             method : "POST",
-            data:new FormData(this),
+            data: new FormData(this),
+            processData:false,
+            contentType:false,
+            cache:false,
+            async:false,
             success: function(data){
                 alert(data);
                 //$('#demo-acc-info-outline').html(data);
